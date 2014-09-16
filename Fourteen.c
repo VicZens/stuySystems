@@ -2,6 +2,9 @@
 #include <stdlib.h>
 
 int ret;
+int i;
+int ans = 999999;
+int ansLength, currLength;
 
 int Collatz_Helper(long input, int numLength) {
   if (input == 1)
@@ -16,10 +19,23 @@ int Collatz_Helper(long input, int numLength) {
 
 long Collatz(long input) {
   return Collatz_Helper(input, 1);
-} 
+}
+
+long Collatz_Solver() {
+  ansLength = Collatz(ans);
+  for(i = 999998; i > 0; i=i-1) {
+    currLength = Collatz(i);
+    if (currLength > ansLength) {
+      ansLength = currLength;
+      ans = i;
+    }
+  }
+  return ans;
+}
 
 int main() {
-  ret = Collatz(13);
+  ret = Collatz_Solver();
+
   printf("%d\n", ret);
   return 0;
 }
