@@ -10,12 +10,13 @@ char * mystr(char *, char *);
 
 int main() {
 
-  char a[] = "Dragons";
-  char b[] = "Imagine";
+  char a[] = "Helln";
+  char b[] = "Hellno";
 
-  printf("mylen 7 = %d\n", mylen(a));
+  //printf("mylen 7 = %d\n", mylen(a));
+  //printf("%c\n", *mycpy(a,b));
 
-  printf("%c\n", *mycpy(a,b));
+  printf("%d\n", mycmp(a,b));
 
   return 0;
 }
@@ -28,7 +29,17 @@ int mylen(char c[]) {
 }
 
 int mycmp(char *a, char *b) {
+  int i = 0;
+
+  while (*a || *b) {
+    if (*(a+i) > *(b+i))
+      return 1;
+    if (*(a+i) < *(b+i))
+      return -1;
+    i++;
+  }
   
+  return 0;
 }
 
 char * mycpy(char *d, char *s) {
