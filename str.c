@@ -55,13 +55,11 @@ char * mycpy(char *d, char *s) {
 
 char * mycat(char *d, char *s) {
   int i = 0;
+  int l = mylen(d);
 
   while (s[i]) {
-    d[mylen(d) + i] = s[i];
-    printf("Adding: %c\n", s[i]);
-    printf("%c\n", d[mylen(d) + i]);
+    d[l + i] = s[i];
     i++;
-    printf("--Added: %s\n", d);
   }
 
   return d;
