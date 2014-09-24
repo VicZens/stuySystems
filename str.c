@@ -5,7 +5,7 @@ int mylen(char *);
 int mycmp(char *, char *);
 char * mycpy(char *, char *);
 char * mycat(char *, char *);
-char * mychr(char *, char *);
+char * mychr(char *, char);
 char * mystr(char *, char *);
 
 int main() {
