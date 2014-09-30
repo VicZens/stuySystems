@@ -3,9 +3,9 @@
 
 int main() {
   double *d;
-  d = (double *)malloc(10 * sizeof(double));
-  
   char *c;
+
+  d = (double *)malloc(10 * sizeof(double));  
   c = (char *)malloc(20 * sizeof(char));
 
   d[40] = 0;
