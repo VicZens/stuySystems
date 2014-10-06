@@ -1,5 +1,9 @@
-all: sct.o
-	gcc sct.o
+all: list.o
+	gcc list.o
 
-sct.o: sct.c
-	gcc -c sct.c
+list.o:
+	gcc -c list.c
+
+clean:
+	rm *.o;
+	rm *~;
