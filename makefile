@@ -1,9 +1,13 @@
 all: list.o
-	gcc list.o
+	gcc -o Jujubes list.o
 
 list.o:
 	gcc -c list.c
 
 clean:
+	clear;
 	rm *.o;
-	rm *~;
+	clear;
+
+run:
+	./Jujubes
