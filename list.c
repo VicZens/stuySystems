@@ -1,60 +1,66 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct intList {
-  int i;
+typedef struct musicList {
+  char artist[];
+  char title[];
   struct intList* next;
 } intList;
 
-int print_list(intList*);
-intList* insert_front(int, intList*);
-intList* free_list(intList*);
+int print_list(musicList*);
+musicList* insert_front(int, musicList*);
+musicList* free_list(musicList*);
+int mycmp(char* a, char* b);
 
 int main() {
-  intList *i;
-  i = (intList*)malloc(sizeof(intList));
-  (*i).i = 1;
-  (*i).next = 0;
-  intList *j = insert_front(2, i);
-  intList *k = insert_front(3, j);
-  intList *l = insert_front(4, k);
-  intList *m = insert_front(5, l);
-  intList *n = insert_front(6, m);
+  musicList origin;
 
-  printf("Expected Values: 6, 5, 4, 3, 2, 1\n");
-  print_list(n);
+  char artest[256];
+  char song[256];
+  (*origin).artist = scanf("%s", artest);
+  (*origin).title = scanf("%s", song);
 
-  printf("Freedom!\n");
-  free(n);
-  
-  printf("Reprinting even though we're not supposed to\n");
-  print_list(n);
 
   return 0;
 }
 
-int print_list(intList *i) {
-  while (i) {
-    printf("%d\n", (*i).i);
+int print_list(musicList *i) {
+while (i) {
+printf("%d\n", (*i).i);
     i = i->next;
   }
   return 0;
 }
 
-intList* insert_front(int a, intList* i) {
-  intList* in = (intList*)malloc(1 * sizeof(intList));
+
+
+musicList* insert_front(int a, musicList* i) {
+  musicList* in = (musicList*)malloc(1 * sizeof(musicList));
   (*in).i = a;
   (*in).next = i;
   return  in;
 }
 
-intList* free_list(intList *i) {
-  intList *p = i;
-  intList *q = i;
+musicList* free_list(musicList* i) {
+  musicList *p = i;
 
-  while (q) {
+  while (i) {
     free(i);
-    i = (*q).next;
+    i = (*i).next;
   }
   return p;
+}
+
+int mycmp(char* a, char* b) {
+  int i = 0;
+
+  while (*(a+i) || *(b+i)) {
+    if (*(a+i) > *(b+i))
+      return 1;
+    if (*(a+i) < *(b+i))
+      return -1;
+    i++;
+  }
+
+  return 0;
 }
