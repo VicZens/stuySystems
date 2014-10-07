@@ -13,20 +13,22 @@ musicList* free_list(musicList*);
 int mycmp(char* a, char* b);
 
 int main() {
-  musicList origin;
+  musicList origin, first;
 
   char artest[256];
   char song[256];
   (*origin).artist = scanf("%s", artest);
   (*origin).title = scanf("%s", song);
 
+  (*first).artist = 0;
+  (*first).title = 0;
 
   return 0;
 }
 
 int print_list(musicList *i) {
-while (i) {
-printf("%d\n", (*i).i);
+  while (i) {
+    printf("%d\n", (*i).i);
     i = i->next;
   }
   return 0;
