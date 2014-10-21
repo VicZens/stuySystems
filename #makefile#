@@ -1,2 +1,0 @@
-all: rwe.o
-	gcc -o 
