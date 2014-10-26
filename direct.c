@@ -24,15 +24,16 @@ int main() {
   rewinddir(d);
 
   int size;
-  struct stat *for_size;
-  stat(curr_path, for_size);
+  struct stat for_size;
+  stat(curr_path, &for_size);
   printf("Regular Files:\n");
   while (entry = readdir(d)) {
     if (entry->d_type==8) {
-      size = size + (*for_size).st_size;
+      size = size + for_size.st_size;
       printf("\t %s \n", entry->d_name);
     }
   }
+  printf("Size: %d\n", size);
 
   closedir(d);
   
