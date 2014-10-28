@@ -5,8 +5,9 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <string.h>
+#include <errno.h>
 
-int main(DIR* d) {
+int main(int argc, char** argv) {
   //Declaring my Variables
   char current_path[255];
   
@@ -35,33 +36,42 @@ int main(DIR* d) {
   
   //Printing out the Files
   printf("Files!!!\n");
-  while (curr_dir = readdir(c_d))
+  while (curr_dir = readdir(c_d)) {
     if (curr_dir->d_type == 8) {
+      printf("%s\n", strerror(errno));
       stat(curr_dir->d_name, to_get_sizes);
-      printf("\t %s \t Size: %d kBs\n", curr_dir->d_name, to_get_sizes->st_size/1000);
+      printf("\t %s \t Size: %d kBs\n", curr_dir->d_name, (int)to_get_sizes->st_size/1000);
     }
+  }
 
-  
+  closedir(c_d);
+
   //Annnnndddd doing this all over again for a select directory
-  rewinddir(d);
+  DIR* d;
+  printf("%d, %s\n", errno, strerror(errno));
+  //d = opendir(argv[1]);
+  printf("%d, %s\n", errno, strerror(errno));
+  printf("%s\n", argv[1]);
+  /*
 
-  printf("Directories???\n");
-  while (curr_dir = readdir(d))
+    printf("Directories???\n");
+    while (curr_dir = readdir(d))
     if (curr_dir->d_type == 4)
-      printf("\t %s \n", curr_dir->d_name);
+    printf("\t %s \n", curr_dir->d_name);
 
-  rewinddir(d);
+    rewinddir(d);
   
-  printf("Files!!!\n");
+    printf("Files!!!\n");
   while (curr_dir = readdir(d))
     if (curr_dir->d_type == 8) {
       stat(curr_dir->d_name, to_get_sizes);
-      printf("\t %s \t Size: %d kBs\n", curr_dir->d_name, to_get_sizes->st_size/1000);
+      printf("\t %s \t Size: %d kBs\n", curr_dir->d_name, (int)to_get_sizes->st_size/1000);
     }
-  
+  */
   //Doesnt work???!!!
   
-
+  //errno = 140;
+  
 
   return 0;
 }

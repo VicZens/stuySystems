@@ -9,4 +9,4 @@ clean:
 	clear
 
 run:
-	./Directory
+	./Directory ~/stuySystems/Old
