@@ -4,97 +4,64 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <dirent.h>
+#include <string.h>
 
-
-int main() {
-  char current_directory[700];
-
-  char* files[700];
-  int* sizes[sizeof(int)];
-
-  DIR* curr_dir;
-  struct dirent* file;
-
-  getcwd(current_directory, sizeof(current_directory));
-
-  printf("Directories");
-  while (file = readdir(current_directory)) {
-    if (file->d_type==4)
-      printf("\t %s \n", file->d_name);
-  }
+int main(char d[255]) {
+  //Declaring my Variables
+  char current_path[255];
   
-
-  closedir(curr_dir);
-  return 0;
-}
-
-
-/*
-  int main(char path[255]) {
-  char curr_path[255];
-  //
-  DIR* d;
-  struct dirent* entry;
-  //
   int size;
-  struct stat for_size;
+  int total_size;
 
-  //Current Directory
-  getcwd(curr_path, sizeof(curr_path));
-  printf("Current Working Directory: %s \n", curr_path);
+  DIR* c_d;
+  struct dirent* curr_dir;
+  struct stat* to_get_sizes;
 
-  //Getting the Directories of this Directory
-  d = opendir(curr_path);
-  printf("Directories:\n");
-  while (entry = readdir(d)) {
-    if (entry->d_type==4) {
-      printf("\t %s \n", entry->d_name);
-    }
-  }
+  //Setting Current Working Directory and Printing it
+  getcwd(current_path, sizeof(current_path));
+  printf("Current Working Directory: \n\t %s \n\n", current_path);
 
-  //Rewinding and making it look nice
-  printf("\n");
-  rewinddir(d);
+  //Right, I have to open the Directory before I can use it...
+  c_d = opendir(current_path);
 
-  //Getting the files for this directory
-  stat(curr_path, &for_size);
-  printf("Regular Files:\n");
-  while (entry = readdir(d)) {
-    if (entry->d_type==8) {
-      size = size + for_size.st_size;
-      printf("\t %s \t Size: %d\n", entry->d_name, for_size.st_size);
-    }
-  }
-  printf("Size: %d\n", size);
-
-  closedir(d);
-
-  //Getting the Directories of this Directory
-  d = opendir(path);
-  printf("Directories:\n");
-  while (entry = readdir(d)) {
-    if (entry->d_type==4) {
-      printf("\t %s \n", entry->d_name);
-    }
-  }
-
-  //Rewinding and making it look nice
-  printf("\n");
-  rewinddir(d);
-
-  //Getting the files for this directory
-  stat(curr_path, &for_size);
-  printf("Regular Files:\n");
-  while (entry = readdir(d)) {
-    if (entry->d_type==8) {
-      size = size + for_size.st_size;
-      printf("\t %s \t Size: %d\n", entry->d_name, for_size.st_size);
-    }
-  }
-  printf("Size: %d\n", size);
-
-  closedir(d);
+  //Printing out the Directories
+  printf("Directories???\n");
+  while (curr_dir = readdir(c_d))
+    if (curr_dir->d_type == 4)
+      printf("\t %s \n", curr_dir->d_name);
   
+  //Final Lap...?
+  rewinddir(c_d);
+  
+  //Printing out the Files
+  printf("Files!!!\n");
+  while (curr_dir = readdir(c_d))
+    if (curr_dir->d_type == 8) {
+      stat(curr_dir->d_name, to_get_sizes);
+      printf("\t %s \t Size: %d kBs\n", curr_dir->d_name, to_get_sizes->st_size/1000);
+    }
+
+  /*
+  //Annnnndddd doing this all over again for a select directory
+  c_d = opendir(d);
+
+  printf("Directories???\n");
+  while (curr_dir = readdir(c_d))
+    if (curr_dir->d_type == 4)
+      printf("\t %s \n", curr_dir->d_name);
+
+  rewinddir(c_d);
+  
+  printf("Files!!!\n");
+  while (curr_dir = readdir(c_d))
+    if (curr_dir->d_type == 8) {
+      stat(curr_dir->d_name, to_get_sizes);
+      printf("\t %s \t Size: %d kBs\n", curr_dir->d_name, to_get_sizes->st_size/1000);
+    }
+  */
+  //Doesnt work???!!!
+  
+
+
   return 0;
 }
-*/
