@@ -6,7 +6,7 @@
 #include <dirent.h>
 #include <string.h>
 
-int main(char d[255]) {
+int main(DIR* d) {
   //Declaring my Variables
   char current_path[255];
   
@@ -41,24 +41,24 @@ int main(char d[255]) {
       printf("\t %s \t Size: %d kBs\n", curr_dir->d_name, to_get_sizes->st_size/1000);
     }
 
-  /*
+  
   //Annnnndddd doing this all over again for a select directory
-  c_d = opendir(d);
+  rewinddir(d);
 
   printf("Directories???\n");
-  while (curr_dir = readdir(c_d))
+  while (curr_dir = readdir(d))
     if (curr_dir->d_type == 4)
       printf("\t %s \n", curr_dir->d_name);
 
-  rewinddir(c_d);
+  rewinddir(d);
   
   printf("Files!!!\n");
-  while (curr_dir = readdir(c_d))
+  while (curr_dir = readdir(d))
     if (curr_dir->d_type == 8) {
       stat(curr_dir->d_name, to_get_sizes);
       printf("\t %s \t Size: %d kBs\n", curr_dir->d_name, to_get_sizes->st_size/1000);
     }
-  */
+  
   //Doesnt work???!!!
   
 
