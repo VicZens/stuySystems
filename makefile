@@ -8,5 +8,3 @@ clean:
 	rm *.o
 	clear
 
-run:
-	./Directory ~/stuySystems/Old

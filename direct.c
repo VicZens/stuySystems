@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
 
   DIR* c_d;
   struct dirent* curr_dir;
-  struct stat* to_get_sizes;
+  struct stat to_get_sizes;
 
   //Setting Current Working Directory and Printing it
   getcwd(current_path, sizeof(current_path));
@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
   c_d = opendir(current_path);
 
   //Printing out the Directories
-  printf("Directories???\n");
+  printf("Directories!!!\n");
   while (curr_dir = readdir(c_d))
     if (curr_dir->d_type == 4)
       printf("\t %s \n", curr_dir->d_name);
@@ -38,40 +38,34 @@ int main(int argc, char** argv) {
   printf("Files!!!\n");
   while (curr_dir = readdir(c_d)) {
     if (curr_dir->d_type == 8) {
-      printf("%s\n", strerror(errno));
-      stat(curr_dir->d_name, to_get_sizes);
-      printf("\t %s \t Size: %d kBs\n", curr_dir->d_name, (int)to_get_sizes->st_size/1000);
+      stat(curr_dir->d_name, &to_get_sizes);
+      printf("\t %s \t Size: %d Bytes\n", curr_dir->d_name, (int)to_get_sizes.st_size);
     }
   }
 
-  closedir(c_d);
+  printf("\n");
 
   //Annnnndddd doing this all over again for a select directory
   DIR* d;
-  printf("%d, %s\n", errno, strerror(errno));
-  //d = opendir(argv[1]);
-  printf("%d, %s\n", errno, strerror(errno));
+  d = opendir(argv[1]);
   printf("%s\n", argv[1]);
-  /*
-
-    printf("Directories???\n");
-    while (curr_dir = readdir(d))
-    if (curr_dir->d_type == 4)
-    printf("\t %s \n", curr_dir->d_name);
-
-    rewinddir(d);
   
-    printf("Files!!!\n");
+
+  printf("Directories!!!\n");
+  while (curr_dir = readdir(d))
+    if (curr_dir->d_type == 4)
+      printf("\t %s \n", curr_dir->d_name);
+
+  rewinddir(d);
+  
+  printf("Files!!!\n");
   while (curr_dir = readdir(d))
     if (curr_dir->d_type == 8) {
-      stat(curr_dir->d_name, to_get_sizes);
-      printf("\t %s \t Size: %d kBs\n", curr_dir->d_name, (int)to_get_sizes->st_size/1000);
+      stat(curr_dir->d_name, &to_get_sizes);
+      printf("\t %s \t Size: %d Bytes\n", curr_dir->d_name, (int)to_get_sizes.st_size);
     }
-  */
-  //Doesnt work???!!!
-  
-  //errno = 140;
-  
+
+  printf("\n\tBy the way, Mr. DW, I found the problem to the 'Seg Fault 139' that I talked to you about on Tuesday. It was the stat struct that didn't like being a pointer. I changed it back into non-pointer and it worked perfectly from there...\n");
 
   return 0;
 }
