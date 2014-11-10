@@ -1,12 +1,10 @@
-all: ewr.o
-	gcc -o RWE ewr.o
+all: direct.o
+	gcc -o Directory direct.o
 
-ewr.o:
-	gcc -c ewr.c
+direct.o: direct.c
+	gcc -c direct.c
 
 clean:
 	rm *.o
 	clear
 
-run:
-	./RWE
