@@ -1,12 +1,12 @@
-all: execution.o
-	gcc -o Execute execution.o
+all: sig.o
+	gcc -o Signal sig.o
 
-execution.o: execution.c
-	gcc -c execution.c
+execution.o: sig.c
+	gcc -c sig.c
 
 clean:
 	rm *.o
 	clear
 
 run:
-	./Execute
+	./Signal
