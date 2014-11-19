@@ -1,12 +1,15 @@
-all: sig.o
-	gcc -o Signal sig.o
+all: run.o shell.o
+	gcc -o Shell run.o shell.o
 
-execution.o: sig.c
-	gcc -c sig.c
+run.o: run.c
+	gcc -c run.c
+
+shell.o:
+	gcc -o shell.c shell.h
 
 clean:
-	rm *.o
+	rm *~
 	clear
 
 run:
-	./Signal
+	./Shell
