@@ -7,3 +7,4 @@
 #include <signal.h>
 
 int exec_command(char* run, char* arg);
+char** parse_command(char* input);

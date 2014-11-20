@@ -1,23 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <dirent.h>
-#include <string.h>
-#include <signal.h>
-
 #include "shell.h"
 
 //Testing Time!!!
 int main() {
-  char* input;
-  input = (char*)malloc(256*sizeof(char));
 
-  printf("Please input: ");
-  fgets(input, sizeof(input), stdin);
-  input = strsep(&input, "\n");
+  //Function to count the number of spaces in a string
 
-  exec_command(input, "Hi");
+  //exec_command("ls", "-al");
 
   return 0;
 }
