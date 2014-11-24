@@ -5,12 +5,12 @@
 //-What the arguments are for
 //-What the return value is for
 
-int exec_command(char* run, char* arg) {
+int exec_command(char** args) {
   int f, status;
   f = fork();
   
   if (f==0)
-    execlp(run, " ", arg, NULL);
+    execvp(args[0], args);
   else 
     wait(&status);
 
@@ -19,30 +19,30 @@ int exec_command(char* run, char* arg) {
 
 char** parse_command(char* input) {
   char** output;
-  output = (char**)malloc(256*sizeof(char));
   char* new_input;
-  new_input = (char*)malloc(256*sizeof(char));
   char* temp;
+  output = (char**)malloc(16*sizeof(char));  
+  new_input = (char*)malloc(256*sizeof(char));
   temp = (char*)malloc(256*sizeof(char));
   int i;
   
-  new_input = strsep(&input, "\n");
-  printf("%s\n", new_input);
+  input = strsep(&input, "\n");
 
-  printf("1\n");
-  while(new_input) {
-    printf("2\n");
-    strsep(&new_input, " ");
-    printf("3\n");
-    strcpy(output[i], temp);
-    i++;
-  }
+  strcpy(new_input, input);
+  printf("%s\n", new_input);
   
-  i = 0;
-  //while(output[i]) {
-  //strcpy(output[0], "Hello");
-  //printf("%s\n", output[0]);
-  //i++; }
+  if (strstr(new_input, " ")) {
+    while(temp = strsep(&new_input, " ")) {
+      output[i] = (char*)malloc(256*sizeof(char));
+      strcpy(output[i], temp);
+      printf("%s\n", output[i]);
+      i++;
+    }
+  } else {
+    output[0] = (char*)malloc(256*sizeof(char));
+    strcpy(output[0], new_input);
+  }
+    
   return output;
 }
 

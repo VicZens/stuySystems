@@ -6,5 +6,5 @@
 #include <string.h>
 #include <signal.h>
 
-int exec_command(char* run, char* arg);
+int exec_command(char** args);
 char** parse_command(char* input);

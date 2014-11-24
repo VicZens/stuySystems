@@ -2,26 +2,13 @@
 
 //Testing Time!!!
 int main() {
-  parse_command("How to make this work");
+  char* input = (char*)malloc(256*sizeof(char));
+  char** clear = parse_command("clear");
+  printf("Please Initiate (Type in Initiate, CasE-SenSitivE)\n");
+  fgets(input, sizeof(input), stdin);
+  exec_command(clear);
 
-  //exec_command("ls", "-al");
+  // while(input) {  }
 
   return 0;
 }
-
-
-//Function to count the number of spaces in a string
-  /*
-  char test[256] = "How many spaces are there";
-  char c = ' ';
-  int i;
-  int count; 
-
-  while(test[i]) {
-    if(test[i] == c)
-      count++;
-    i++;
-  }
-
-  printf("%d\n", count);
-  */
