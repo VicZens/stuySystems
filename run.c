@@ -3,12 +3,17 @@
 //Testing Time!!!
 int main() {
   char* input = (char*)malloc(256*sizeof(char));
-  char** clear = parse_command("clear");
-  printf("Please Initiate (Type in Initiate, CasE-SenSitivE)\n");
-  fgets(input, sizeof(input), stdin);
-  exec_command(clear);
+  char** cmd;// = parse_command("clear");
+  printf("Please Initiate...\n");
+  //fgets(input, sizeof(input), stdin);
+  //exec_command(cmd);
 
-  // while(input) {  }
+  while(input) {
+    printf("Bash: ");
+    fgets(input, sizeof(input), stdin);
+    cmd = parse_command(input);
+    exec_command(cmd);
+  }
 
   return 0;
 }

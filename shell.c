@@ -24,15 +24,16 @@ char** parse_command(char* input) {
   output = (char**)malloc(16*sizeof(char));  
   new_input = (char*)malloc(256*sizeof(char));
   temp = (char*)malloc(256*sizeof(char));
+
   int i;
   
-  input = strsep(&input, "\n");
-
+  input = strsep(&input, "\n");  
   strcpy(new_input, input);
-  printf("%s\n", new_input);
+  printf("Copied - %s\n", new_input);
   
-  if (strstr(new_input, " ")) {
+  if (strchr(new_input, ' ')) {  
     while(temp = strsep(&new_input, " ")) {
+      printf("Parsing 1");
       output[i] = (char*)malloc(256*sizeof(char));
       strcpy(output[i], temp);
       printf("%s\n", output[i]);
