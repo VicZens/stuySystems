@@ -4,7 +4,7 @@
 int main() {
   char* input = (char*)malloc(256*sizeof(char));
   char** cmd;// = parse_command("clear");
-  printf("Please Initiate...\n");
+  printf("Initiating...\n");
   //fgets(input, sizeof(input), stdin);
   //exec_command(cmd);
 

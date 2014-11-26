@@ -27,13 +27,25 @@ char** parse_command(char* input) {
 
   int i;
   
-  input = strsep(&input, "\n");  
+  printf("Before\n");
+  printf("%s\n", input);
+  while(input[i]) {
+    printf("What?!");
+    if(!strcmp(&input[i], "\n"))
+      input[i] = '\0';
+    printf("Value: %d\t Letter: %c", strcmp(&input[i], "\n"), input[i]);
+    i++;
+  }
+  printf("After\n");
+  i = 0;
+  
   strcpy(new_input, input);
   printf("Copied - %s\n", new_input);
   
-  if (strchr(new_input, ' ')) {  
+  if (strstr(new_input, " ")) {
+    printf("Parsing 0\n");
     while(temp = strsep(&new_input, " ")) {
-      printf("Parsing 1");
+      printf("Parsing 1\n");
       output[i] = (char*)malloc(256*sizeof(char));
       strcpy(output[i], temp);
       printf("%s\n", output[i]);
@@ -46,4 +58,5 @@ char** parse_command(char* input) {
     
   return output;
 }
+
 
