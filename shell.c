@@ -1,10 +1,5 @@
 #include "shell.h"
 
-//Every function requires a header
-//-What it does
-//-What the arguments are for
-//-What the return value is for
-
 int exec_command(char** args) {
   int f, status;
   f = fork();
@@ -25,30 +20,21 @@ char** parse_command(char* input) {
   new_input = (char*)malloc(256*sizeof(char));
   temp = (char*)malloc(256*sizeof(char));
 
-  int i;
+  int i = 0;
   
-  printf("Before\n");
-  printf("%s\n", input);
   while(input[i]) {
-    printf("What?!");
     if(!strcmp(&input[i], "\n"))
       input[i] = '\0';
-    printf("Value: %d\t Letter: %c", strcmp(&input[i], "\n"), input[i]);
     i++;
   }
-  printf("After\n");
-  i = 0;
   
+  i = 0;
   strcpy(new_input, input);
-  printf("Copied - %s\n", new_input);
   
   if (strstr(new_input, " ")) {
-    printf("Parsing 0\n");
     while(temp = strsep(&new_input, " ")) {
-      printf("Parsing 1\n");
       output[i] = (char*)malloc(256*sizeof(char));
       strcpy(output[i], temp);
-      printf("%s\n", output[i]);
       i++;
     }
   } else {
@@ -60,3 +46,18 @@ char** parse_command(char* input) {
 }
 
 
+int check_command(char* input) {
+  int ret_val = 0;
+  char** cmd;
+  if(strstr(input, "cd")) {
+    printf("Running");
+    cmd = parse_command(input);
+    execvp(cmd[0], cmd);
+    ret_val++;
+  }
+  return ret_val;
+}
+
+int change_directory(char* input) {
+  
+}

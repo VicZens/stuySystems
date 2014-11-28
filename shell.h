@@ -7,4 +7,6 @@
 #include <signal.h>
 
 int exec_command(char** args);
+int check_command(char* input);
 char** parse_command(char* input);
+int change_directory(char* input);
