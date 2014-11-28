@@ -9,7 +9,10 @@ Attempted:
 	
 
 Bugs:
-	-Entering nothing will fork the process, which will make exit exit the
-	child instead of the parent
+	-If you cd .. and then try to cd into something else, it doesn't work and
+	will fork the function.
+	-Inserting unnecessary spaces will not work.
+	-When using ;, leaving spaces in between the arguments will cause an error
+	ex. ls ; ps will cause an error while ls;ps will run fine
 	-Don't kill yourself. Just exit. 
 

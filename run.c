@@ -8,16 +8,13 @@ int main() {
   printf("Initiating...\n");
   sleep(1.5);
   exec_command(cmd);
-  printf("Welcome to Bash! (Please remember to seperate all your arguments with a space)\n");
+  printf("Welcome to Bash! \n(Please seperate all your arguments with a space, aside from when you use ;)\n\n");
   
   while(input) {
     getcwd(curr_dir, sizeof(curr_dir));
     printf("%s - %d - Bash: ", curr_dir, getpid());
     fgets(input, sizeof(input), stdin);
-    if(!check_command(input)) {
-      cmd = parse_command(input);
-      exec_command(cmd);
-    }
+    check_and_run(input);
   }
 
   return 0;

@@ -33,6 +33,36 @@ char** parse_command(char* input) {
   return output;
 }
 
+int check_command(char* input) {
+  int ret_val = 0;
+  char** cmd;
+  char* temp;
+
+  if(strstr(input, "cd")) {
+    cmd = parse_command(input);
+    chdir(cmd[1]);
+    opendir(cmd[1]);
+    ret_val++;
+  } else if (!strcmp(input, "\n")) {
+    ret_val++;
+  } else if (strstr(input, "exit")) {
+    printf("Goodbye...\n");
+    //sleep(1);
+    exit(0);
+  } else if (strstr(input, ";")) {
+    temp = strsep(&input, ";");
+    parse_command(temp);
+    check_and_run(temp);
+
+    parse_command(input);
+    check_and_run(input);
+    ret_val++;
+  }
+
+  return ret_val;
+}
+
+
 int exec_command(char** args) {
   int f, status;
   f = fork();
@@ -45,16 +75,12 @@ int exec_command(char** args) {
   return 0;
 }
 
-int check_command(char* input) {
-  int ret_val = 0;
+int check_and_run(char* input) {
   char** cmd;
-  if(strstr(input, "cd")) {
+  
+  if(!check_command(input)) {
     cmd = parse_command(input);
-    chdir(cmd[1]);
-  } else if (strstr(input, "exit")) {
-    printf("Goodbye...\n");
-    sleep(1);
-    exit(0);
+    exec_command(cmd);
   }
-  return ret_val;
+  return 0;
 }
