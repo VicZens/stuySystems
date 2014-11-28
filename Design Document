@@ -12,6 +12,7 @@ Bugs:
 	-If you cd .. and then try to cd into something else, it doesn't work and
 	will fork the function.
 	-Inserting unnecessary spaces will not work.
+	-Cannot use two ; in one line
 	-When using ;, leaving spaces in between the arguments will cause an error
 	ex. ls ; ps will cause an error while ls;ps will run fine
 	-Don't kill yourself. Just exit. 
