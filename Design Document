@@ -2,5 +2,14 @@ Welcome to the Terminal!
 by Victor Wu
 
 Features:
-	Will fork and execute commands!
+	-Will fork and execute commands!
+	-Can exit and cd!
+
+Attempted:
+	
+
+Bugs:
+	-Entering nothing will fork the process, which will make exit exit the
+	child instead of the parent
+	-Don't kill yourself. Just exit. 
 

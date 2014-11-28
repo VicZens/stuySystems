@@ -1,17 +1,5 @@
 #include "shell.h"
 
-int exec_command(char** args) {
-  int f, status;
-  f = fork();
-  
-  if (f==0)
-    execvp(args[0], args);
-  else 
-    wait(&status);
-
-  return 0;
-}
-
 char** parse_command(char* input) {
   char** output;
   char* new_input;
@@ -30,7 +18,7 @@ char** parse_command(char* input) {
   
   i = 0;
   strcpy(new_input, input);
-  
+
   if (strstr(new_input, " ")) {
     while(temp = strsep(&new_input, " ")) {
       output[i] = (char*)malloc(256*sizeof(char));
@@ -41,23 +29,32 @@ char** parse_command(char* input) {
     output[0] = (char*)malloc(256*sizeof(char));
     strcpy(output[0], new_input);
   }
-    
+  
   return output;
 }
 
+int exec_command(char** args) {
+  int f, status;
+  f = fork();
+  
+  if (f==0)
+    execvp(args[0], args);
+  else 
+    wait(&status);
+
+  return 0;
+}
 
 int check_command(char* input) {
   int ret_val = 0;
   char** cmd;
   if(strstr(input, "cd")) {
-    printf("Running");
     cmd = parse_command(input);
-    execvp(cmd[0], cmd);
-    ret_val++;
+    chdir(cmd[1]);
+  } else if (strstr(input, "exit")) {
+    printf("Goodbye...\n");
+    sleep(1);
+    exit(0);
   }
   return ret_val;
-}
-
-int change_directory(char* input) {
-  
 }
