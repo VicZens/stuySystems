@@ -3,7 +3,9 @@ by Victor Wu
 
 Features:
 	-Will fork and execute commands!
-	-Can exit and cd!
+	-Can exit and cd(kinda, refer to bugs)!
+	-Can run more than one command using ;!
+	-Can redirect using > and <!
 
 Attempted:
 	
@@ -11,7 +13,10 @@ Attempted:
 Bugs:
 	-Cannot change to a 2nd different directory.
 	ex. cd <dir1> and then cd <dir2>, which is in dir1, will not work.
+
 	-Inserting unnecessary spaces will not work.
+	ex. ls will work while ls___, where the _ are spaces, will not work
+
 	-When using ; or > or <, leaving spaces in between the arguments will 
 	cause an error
 	ex. ls ; echo hello will cause an error while ls;echo hello will run fine

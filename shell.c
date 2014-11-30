@@ -54,7 +54,26 @@ int check_command(char* input) {
     input = remove_newline(input);
     redirect(input, temp);
     ret_val++;
+  } else if(strstr(input, "|")) {
+    temp = strsep(&input, "|");
+    input = remove_newline(input);
+    piping(temp, input);
+    ret_val++;
   } 
+  /*
+  else if(strstr(input, ">>")) {
+    printf("Found it");
+    temp = strsep(&input, ">>");
+    input = remove_newline(input);
+    redirect_append(temp, input);
+    ret_val++;
+  } else if(strstr(input, "<<")) {
+    temp = strsep(&input, "<<");
+    input = remove_newline(input);
+    redirect_append(input, temp);
+    ret_val++;
+  }
+  */
 
   return ret_val;
 }
@@ -87,12 +106,31 @@ int redirect(char* source, char* dest) {
   char temp[256] = "touch ";
   strcat(temp, dest);
   check_and_run(temp);
+  fd_dest = open(dest, O_WRONLY | O_TRUNC);
+  fd_source = dup(STDOUT_FILENO);
+  dup2(fd_dest, STDOUT_FILENO);
+  check_and_run(source);
+  dup2(fd_source, STDOUT_FILENO);
+
+  return 0;
+}
+
+int redirect_append(char* source, char* dest) {
+  int fd_source, fd_dest;
+  //char temp[256] = "touch ";
+  //strcat(temp, dest);
+  //check_and_run(temp);
   fd_dest = open(dest, O_WRONLY | O_APPEND);
   fd_source = dup(STDOUT_FILENO);
   dup2(fd_dest, STDOUT_FILENO);
   check_and_run(source);
   dup2(fd_source, STDOUT_FILENO);
 
+  return 0;
+}
+
+int piping(char* source, char* dest) {
+  
   return 0;
 }
 

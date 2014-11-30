@@ -11,4 +11,7 @@ int check_command(char*);
 int exec_command(char**);
 int check_and_run(char*);
 int redirect(char*, char*);
+int pipiing(char*, char*);
 char* remove_newline(char*);
+
+//int redirect_append(char*, char*);
