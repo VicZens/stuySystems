@@ -9,11 +9,10 @@ Attempted:
 	
 
 Bugs:
-	-If you cd .. and then try to cd into something else, it doesn't work and
-	will fork the function.
+	-Cannot change to a 2nd different directory.
+	ex. cd <dir1> and then cd <dir2>, which is in dir1, will not work.
 	-Inserting unnecessary spaces will not work.
-	-Cannot use two ; in one line
-	-When using ;, leaving spaces in between the arguments will cause an error
-	ex. ls ; ps will cause an error while ls;ps will run fine
-	-Don't kill yourself. Just exit. 
+	-When using ; or > or <, leaving spaces in between the arguments will 
+	cause an error
+	ex. ls ; echo hello will cause an error while ls;echo hello will run fine
 

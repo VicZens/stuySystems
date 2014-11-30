@@ -9,14 +9,7 @@ char** parse_command(char* input) {
   temp = (char*)malloc(256*sizeof(char));
 
   int i = 0;
-  
-  while(input[i]) {
-    if(!strcmp(&input[i], "\n"))
-      input[i] = '\0';
-    i++;
-  }
-  
-  i = 0;
+  input = remove_newline(input);
   strcpy(new_input, input);
 
   if (strstr(new_input, " ")) {
@@ -29,6 +22,7 @@ char** parse_command(char* input) {
     output[0] = (char*)malloc(256*sizeof(char));
     strcpy(output[0], new_input);
   }
+  i = 0;
   
   return output;
 }
@@ -37,27 +31,30 @@ int check_command(char* input) {
   int ret_val = 0;
   char** cmd;
   char* temp;
-
-  if(strstr(input, "cd")) {
+  
+  if (!strcmp(input, "\n")) {
+    ret_val++;
+  } else if (strstr(input, ";")) {
+    temp = strsep(&input, ";");
+    check_and_run(temp);
+    check_and_run(input);
+    ret_val++;
+  } else if(strstr(input, "cd")) {
     cmd = parse_command(input);
     chdir(cmd[1]);
     opendir(cmd[1]);
     ret_val++;
-  } else if (!strcmp(input, "\n")) {
+  } else if(strstr(input, ">")) {
+    temp = strsep(&input, ">");
+    input = remove_newline(input);
+    redirect(temp, input);
     ret_val++;
-  } else if (strstr(input, "exit")) {
-    printf("Goodbye...\n");
-    //sleep(1);
-    exit(0);
-  } else if (strstr(input, ";")) {
-    temp = strsep(&input, ";");
-    parse_command(temp);
-    check_and_run(temp);
-
-    parse_command(input);
-    check_and_run(input);
+  } else if(strstr(input, "<")) {
+    temp = strsep(&input, "<");
+    input = remove_newline(input);
+    redirect(input, temp);
     ret_val++;
-  }
+  } 
 
   return ret_val;
 }
@@ -66,7 +63,7 @@ int check_command(char* input) {
 int exec_command(char** args) {
   int f, status;
   f = fork();
-  
+
   if (f==0)
     execvp(args[0], args);
   else 
@@ -83,4 +80,30 @@ int check_and_run(char* input) {
     exec_command(cmd);
   }
   return 0;
+}
+
+int redirect(char* source, char* dest) {
+  int fd_source, fd_dest;
+  char temp[256] = "touch ";
+  strcat(temp, dest);
+  check_and_run(temp);
+  fd_dest = open(dest, O_WRONLY | O_APPEND);
+  fd_source = dup(STDOUT_FILENO);
+  dup2(fd_dest, STDOUT_FILENO);
+  check_and_run(source);
+  dup2(fd_source, STDOUT_FILENO);
+
+  return 0;
+}
+
+char* remove_newline(char* input) {
+  int i = 0;
+
+  while(input[i]) {
+    if(!strcmp(&input[i], "\n"))
+      input[i] = '\0';
+    i++;
+  }
+
+  return input;
 }

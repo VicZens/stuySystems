@@ -6,8 +6,9 @@
 #include <string.h>
 #include <signal.h>
 
-char** parse_command(char* input);
-int check_command(char* input);
-int exec_command(char** args);
-int check_and_run(char* input);
-
+char** parse_command(char*);
+int check_command(char*);
+int exec_command(char**);
+int check_and_run(char*);
+int redirect(char*, char*);
+char* remove_newline(char*);
