@@ -1,13 +1,10 @@
-all: server.o client.o
-	gcc -o Server server.o
-	gcc -o Client client.o
+all: pic.o
+	gcc -o Gen pic.o
 
-server.o: server.c tools.h
-	gcc -c server.c tools.h
-
-client.o: client.c tools.h
-	gcc -c client.c tools.h
+pic.o: pic.c
+	gcc -c pic.c
 
 clean:
-	rm *.o
-	clear
+	rm pic.o
+	rm image.ppm
+	rm Gen

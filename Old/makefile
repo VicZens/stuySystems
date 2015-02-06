@@ -1,16 +1,13 @@
-all: run.o shell.o
-	gcc -o Terminal run.o shell.o
+all: server.o client.o
+	gcc -o Server server.o
+	gcc -o Client client.o
 
-run.o: run.c
-	gcc -c run.c
+server.o: server.c tools.h
+	gcc -c server.c tools.h
 
-shell.o: shell.c shell.h
-	gcc -c shell.c
+client.o: client.c tools.h
+	gcc -c client.c tools.h
 
 clean:
 	rm *.o
-	rm Terminal
 	clear
-
-run:
-	./Terminal
